@@ -3,28 +3,28 @@ from utils.all_utils import prepare_data, save_model, save_plot
 import pandas as pd
 import numpy as np
 
-AND = {
+def main(data, model_name, plot_name, eta, epochs):
+
+    df = pd.DataFrame(data)
+    df
+
+    X,y = prepare_data(df)
+
+    model = perceptron(eta= eta, epochs= epochs)
+    model.fit(X, y)
+
+    _ = model.total_loss()
+
+    save_model(model, filename=model_name)
+    save_plot(df, plot_name, model)
+
+if __name__=='__main__':
+    AND = {
     "x1": [0,0,1,1],
     "x2": [0,1,0,1],
     "y": [0,0,0,1],
-}
-
-df = pd.DataFrame(AND)
-
-df
-
-X,y = prepare_data(df)
-
-ETA = 0.3 # should be between 0 and 1
-EPOCHS = 10
-
-model = perceptron(eta= ETA, epochs= EPOCHS)
-model.fit(X, y)
-
-_ = model.total_loss()
-
-save_model(model, filename="and.model")
-save_plot(df, "and.png", model)
-
-
-
+    }
+    ETA = 0.3 # should be between 0 and 1
+    EPOCHS = 10
+    
+    main( AND,  "and.py", "and.png", ETA, EPOCHS)
